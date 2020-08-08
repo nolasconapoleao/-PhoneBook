@@ -1,0 +1,12 @@
+{
+  "request": "updateContact",
+  "contact": {
+    "id": "Peter",
+    "name": "Peterson",
+    "number": "920724243"
+  },
+  "session": {
+    "username" : "nolasconapoleao",
+    "jwToken" : "5216nbo43-13n306-bn1"
+  }
+}

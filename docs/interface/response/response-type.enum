@@ -1,0 +1,5 @@
+enum response-type {
+    success,
+    invalid-session-credentials,
+    invalid-id
+}
