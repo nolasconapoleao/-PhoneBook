@@ -1,0 +1,42 @@
+enum requestResult {
+    SUCCESS,
+    FAIL_INVALID_ID,
+    FAIL_GENERAL,
+}
+
+@startuml
+participant backend
+participant frontend
+
+== Authentication ==
+note right frontend: Home screen.
+frontend -> backend: Authentication Request
+backend -> frontend: Authentication Result
+
+alt result == jwToken
+    note right frontend: Phonebook screen.
+else
+    note right frontend: Home screen.
+end
+
+
+== Read all contacts ==
+frontend --> backend : readContacts(username, password)
+backend --> frontend : contactList()
+
+
+== Create contact ==
+frontend --> backend : createContact(name, number)
+backend --> frontend : creationResult(result)
+
+
+== Delete contact ==
+frontend --> backend : deleteContact(id, name)
+backend --> frontend : deleteResult()
+
+
+== Update contact ==
+frontend --> backend : updateContact(id, name, contact)
+backend --> frontend : updateResult()
+
+@enduml
