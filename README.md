@@ -29,5 +29,5 @@ README.md
 [Project layout conventions](https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs)
 
 ## Authors
-* **Hugo Napoleao** - *Back end* - [hugo1992napoleao](hugonapoleao_1992@hotmail.com)
+* **Hugo Napoleao** - *Back end* - [hugo1992napoleao](hugo_1992napoleao@hotmail.com)
 * **Nolasco Napoleao** - *Front end* - [nolasconapoleao](nolascoamadonapoleao@gmail.com)
