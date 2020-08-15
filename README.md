@@ -4,12 +4,15 @@ A phone book for personal use.
 ## Agile board:
 [Agile board](https://trello.com/b/quSZXPeZ/agile-sprint-board-phonebook)
 
+## Used tools:
+[balsamiq](https://balsamiq.com/)
 
 ## Project structure
 ```
 +build
 +docs
-  +diagrams
+  +sequence-diagram
+  +mockups
   +interface
 +external
 +extras
@@ -25,8 +28,10 @@ A phone book for personal use.
 README.md
 ```
 
-## Programming guideline
+## Programming materials
 [Project layout conventions](https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs)
+
+[gitignore generator](https://www.toptal.com/developers/gitignore)
 
 ## Authors
 * **Hugo Napoleao** - *Back end* - [hugo1992napoleao](hugo_1992napoleao@hotmail.com)
