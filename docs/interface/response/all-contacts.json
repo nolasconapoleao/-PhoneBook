@@ -1,0 +1,20 @@
+{
+  "contactlist": {
+    "contact": {
+      "name": "Peter",
+      "number": "920903243"
+    },
+    "contact": {
+      "name": "Mike",
+      "number": "924203239"
+    },
+    "contact": {
+      "name": "Jakie",
+      "number": "920903264"
+    },
+    "contact": {
+      "name": "Frank",
+      "number": "920903223"
+    }
+  }
+}

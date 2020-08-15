@@ -1,0 +1,7 @@
+{
+  "request": "suspend",
+  "session": {
+    "username": "username",
+    "password": "password"
+  }
+}

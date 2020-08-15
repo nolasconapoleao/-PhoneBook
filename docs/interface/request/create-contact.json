@@ -1,0 +1,11 @@
+{
+  "request": "addContact",
+  "contact": {
+    "name": "Peter",
+    "number": "920903243"
+  },
+  "session": {
+    "username" : "nolasconapoleao",
+    "jwToken" : "5216nbo43-13n306-bn1"
+  }
+}

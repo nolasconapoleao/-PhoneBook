@@ -1,0 +1,7 @@
+{
+  "request": "register",
+  "session": {
+    "username": "username",
+    "password": "password"
+  }
+}

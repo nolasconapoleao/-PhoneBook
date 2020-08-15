@@ -1,0 +1,7 @@
+{
+  "request": "authenticate",
+  "session": {
+    "username": "username",
+    "password": "password"
+  }
+}
