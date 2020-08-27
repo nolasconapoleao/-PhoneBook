@@ -29,15 +29,24 @@ README.md
 ```
 
 ## Project development dependencies
-cmake
-openssl
-boost
-libcpprest
+cmake <br />
+openssl <br />
+boost <br />
+[ngrest](https://github.com/loentar/ngrest)
 
 ## Programming materials
 [Project layout conventions](https://api.csswg.org/bikeshed/?force=1&url=https://raw.githubusercontent.com/vector-of-bool/pitchfork/develop/data/spec.bs)
 
 [gitignore generator](https://www.toptal.com/developers/gitignore)
+
+## Backend instructions
+The rest server requires the installation of [ngrest](https://github.com/loentar/ngrest). <br />
+After installing open directory back-end and run: <br />
+```console
+$ ngrest
+```
+The server will be available at: <br />
+http://localhost:9098/ngrest/service/RestServer
 
 ## Authors
 * **Hugo Napoleao** - *Back end* - [hugo1992napoleao](hugo_1992napoleao@hotmail.com)
