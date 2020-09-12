@@ -16,9 +16,10 @@ A phone book for personal use.
   +interface
 +external
 +extras
-+src
-  +back-end
-  +front-end
++back-end
+  +src
+  +tests
++front-end
 +tests
   +mock
   +unit-test

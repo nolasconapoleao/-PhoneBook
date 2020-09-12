@@ -1,0 +1,9 @@
+footer {
+  border-style: solid;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#cellphone, #email {
+  margin-left: 5%;
+}
