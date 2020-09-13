@@ -22,7 +22,7 @@ list(APPEND PHONEBOOKSERVER_SOURCES ${PHONEBOOKSERVER_CODEGEN_SOURCES})
 
 include_directories(${PROJECT_SOURCE_DIR} $ENV{NGREST_EXT_INCLUDES})
 
-add_library(phonebookserver MODULE ${PHONEBOOKSERVER_SOURCES} src/Contact.h src/Phonebook.cpp src/Phonebook.h)
+add_library(phonebookserver MODULE ${PHONEBOOKSERVER_SOURCES} src/Contact.h)
 
 set_target_properties(phonebookserver PROPERTIES PREFIX "")
 set_target_properties(phonebookserver PROPERTIES
