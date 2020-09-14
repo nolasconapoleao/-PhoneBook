@@ -17,6 +17,10 @@ ContactList::~ContactList() {
   persist();
 }
 
+void ContactList::clear() {
+  contacts.clear();
+}
+
 void ContactList::restore() {
       std::string line;
       std::string temp[2];

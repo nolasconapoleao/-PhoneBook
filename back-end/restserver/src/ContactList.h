@@ -12,6 +12,7 @@ public:
     ContactList();
     ~ContactList();
     std::map<std::string, std::string> contacts;
+    void clear();
 
 private:
     void restore();

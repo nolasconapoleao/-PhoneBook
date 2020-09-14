@@ -46,4 +46,15 @@ namespace phonebook {
         remove(id);
         create(contact);
     }
+
+    void clearAll() {
+      list.clear();
+    }
+
+    void populateDb() {
+      list.contacts.emplace("nolasco", "123" );
+      list.contacts.emplace("jackie", "342");
+      list.contacts.emplace("pedro", "124" );
+      list.contacts.emplace("jackie", "125" );
+    }
 };

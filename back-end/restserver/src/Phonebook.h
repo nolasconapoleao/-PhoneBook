@@ -17,6 +17,8 @@ namespace phonebook {
     void remove(const std::string& id);
     void update(const std::string& id, const Contact &contact);
 
+    void clearAll();
+    void populateDb();
     bool idExists(const std::string& id);
     static ContactList list = ContactList{};
 };
