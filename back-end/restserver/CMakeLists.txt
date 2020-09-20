@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 2.6)
 
 project (phonebookserver CXX)
 
+# Add cmake scripts
+include(tools/cmake/tests.cmake)
+
+
 set(PHONEBOOKSERVER_HEADERS RestServer.h Contact.h)
 
 set(PROJECT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -22,7 +26,9 @@ list(APPEND PHONEBOOKSERVER_SOURCES ${PHONEBOOKSERVER_CODEGEN_SOURCES})
 
 include_directories(${PROJECT_SOURCE_DIR} $ENV{NGREST_EXT_INCLUDES})
 
-add_library(phonebookserver MODULE ${PHONEBOOKSERVER_SOURCES} src/Contact.h src/Phonebook.cpp src/Phonebook.h)
+
+add_library(phonebookserver MODULE ${PHONEBOOKSERVER_SOURCES} src/Contact.h)
+
 
 set_target_properties(phonebookserver PROPERTIES PREFIX "")
 set_target_properties(phonebookserver PROPERTIES
@@ -30,3 +36,16 @@ set_target_properties(phonebookserver PROPERTIES
 )
 
 target_link_libraries(phonebookserver ngrestutils ngrestcommon ngrestjson ngrestengine $ENV{NGREST_EXT_LIBS})
+
+
+# To disable tests, comment these two lines
+enable_testing()
+add_subdirectory(tests)
+
+## Unit tests target
+add_custom_target(RunAllTests
+    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+    COMMENT "Run all tests"
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/restserver/tests
+)
+

@@ -8,12 +8,16 @@
 
 namespace phonebook {
     bool idExists(const std::string& id) {
-        return contacts.count(id) > 0;
+
+        return list.contacts.count(id) > 0;
+
     }
 
     std::list<Contact> readAll() {
         std::list<Contact> result;
-        for(const auto &[key, value] : contacts) {
+
+        for(const auto &[key, value] : list.contacts) {
+
             result.emplace_back(Contact{key, value});
         }
 
@@ -23,30 +27,44 @@ namespace phonebook {
     Contact read(const std::string& id) {
         NGREST_ASSERT_HTTP(idExists(id), ngrest::HTTP_STATUS_404_NOT_FOUND, "Contact id does not exist");
 
-        const auto &it = contacts.find(id);
+
+        const auto &it = list.contacts.find(id);
+
         Contact result {it->first, it->second};
         return result;
     }
 
-    std::string create(const Contact &contact) {
+
+    void create(const Contact &contact) {
         NGREST_ASSERT_HTTP(!idExists(contact.name), ngrest::HTTP_STATUS_409_CONFLICT, "Contact name already used");
 
-        contacts.emplace(contact.name, contact.number);
-        return "Contact created successfully";
+        list.contacts.emplace(contact.name, contact.number);
     }
 
-    std::string remove(const std::string& id) {
+    void remove(const std::string& id) {
         NGREST_ASSERT_HTTP(idExists(id), ngrest::HTTP_STATUS_404_NOT_FOUND, "Contact id does not exist");
 
-        contacts.erase(id);
-        return "Contact deleted successfully";
+        list.contacts.erase(id);
     }
 
-    std::string update(const std::string& id, const Contact &contact) {
+    void update(const std::string& id, const Contact &contact) {
+
         NGREST_ASSERT_HTTP(idExists(id), ngrest::HTTP_STATUS_404_NOT_FOUND, "Contact id does not exist");
 
         remove(id);
         create(contact);
-        return "Contact updated successfully";
+
+    }
+
+    void clearAll() {
+      list.clear();
+    }
+
+    void populateDb() {
+      list.contacts.emplace("nolasco", "123" );
+      list.contacts.emplace("jackie", "342");
+      list.contacts.emplace("pedro", "124" );
+      list.contacts.emplace("jackie", "125" );
+
     }
 };

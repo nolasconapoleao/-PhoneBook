@@ -22,13 +22,14 @@ public:
 
     //! Adds a new contact
     // *method: POST
-    std::string create(const std::string& name, const std::string& number);
+    void create(const std::string& name, const std::string& number);
 
     //! Edits a contact
     // *method: PUT
-    std::string update(const std::string& id, const std::string& name, const std::string& number);
+    void update(const std::string& id, const std::string& name, const std::string& number);
 
     //! Deletes a contact by name
     // *method: DELETE
-    std::string remove(const std::string& id);
+    void remove(const std::string& id);
+
 };

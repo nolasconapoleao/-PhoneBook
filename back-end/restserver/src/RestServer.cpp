@@ -13,14 +13,15 @@ Contact RestServer::read(const std::string& id) {
     return phonebook::read(id);
 }
 
-std::string RestServer::create(const std::string& name, const std::string& number) {
-    return phonebook::create(Contact{name, number});
+void RestServer::create(const std::string& name, const std::string& number) {
+    phonebook::create(Contact{name, number});
 }
 
-std::string RestServer::update(const std::string& id, const std::string& name, const std::string& number) {
-    return phonebook::update(id, Contact{name, number});
+void RestServer::update(const std::string& id, const std::string& name, const std::string& number) {
+    phonebook::update(id, Contact{name, number});
 }
 
-std::string RestServer::remove(const std::string& id) {
-    return phonebook::remove(id);
+void RestServer::remove(const std::string& id) {
+    phonebook::remove(id);
+
 }
