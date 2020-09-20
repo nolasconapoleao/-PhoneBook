@@ -10,6 +10,7 @@
 #include "Contact.h"
 #include "ContactList.h"
 
+
 namespace phonebook {
     std::list<Contact> readAll();
     Contact read(const std::string& id);
@@ -21,4 +22,5 @@ namespace phonebook {
     void populateDb();
     bool idExists(const std::string& id);
     static ContactList list = ContactList{};
+
 };

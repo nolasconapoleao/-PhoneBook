@@ -23,4 +23,5 @@ void RestServer::update(const std::string& id, const std::string& name, const st
 
 void RestServer::remove(const std::string& id) {
     phonebook::remove(id);
+
 }

@@ -31,4 +31,5 @@ public:
     //! Deletes a contact by name
     // *method: DELETE
     void remove(const std::string& id);
+
 };
