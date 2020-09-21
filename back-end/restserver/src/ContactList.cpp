@@ -6,10 +6,10 @@
 #include <fstream>
 #include "ContactList.h"
 
-constexpr const char *const filename {".ngrest/local/build/example.txt"};
+constexpr const char *const filename {".ngrest/local/build/contactDb.txt"};
 
 ContactList::ContactList() {
-  contacts = std::map<std::string, std::string>{};
+  contactDb = std::map<std::string, std::string>{};
   restore();
 }
 
@@ -18,7 +18,7 @@ ContactList::~ContactList() {
 }
 
 void ContactList::clear() {
-  contacts.clear();
+  contactDb.clear();
 }
 
 void ContactList::restore() {
@@ -36,7 +36,7 @@ void ContactList::restore() {
           {
             ++i;
           };
-          contacts.emplace(temp[0], temp[1]);
+          contactDb.emplace(temp[0], temp[1]);
         }
         myfile.close();
       }
@@ -45,7 +45,7 @@ void ContactList::restore() {
 void ContactList::persist() {
   std::ofstream myfile;
   myfile.open(filename);
-  for(const auto & [id, name]: contacts) {
+  for(const auto & [id, name]: contactDb) {
     myfile << id << "," << name << "\n";
   }
   myfile.close();
