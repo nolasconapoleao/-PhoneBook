@@ -5,30 +5,41 @@
 
 #include "Phonebook.h"
 
-std::list<Contact> RestServer::readAll() {
-    return phonebook::readAll();
+std::list<Contact> RestServer::readAll(const std::string& username, const std::string& token) {
+  AuthToken authToken{username, token};
+  return phonebook::readAll(authToken);
 }
 
-Contact RestServer::read(const std::string& id) {
-    return phonebook::read(id);
+Contact RestServer::read(const std::string& username, const std::string& token, const std::string& id) {
+  AuthToken authToken{username, token};
+  return phonebook::read(authToken, id);
 }
 
-void RestServer::create(const std::string& name, const std::string& number) {
-    phonebook::create(Contact{name, number});
+std::string RestServer::create(const std::string& username, const std::string& token, const std::string& name,
+                               const std::string& number) {
+  AuthToken authToken{username, token};
+  phonebook::create(authToken, Contact{name, number});
+  return "Contact successfully created";
 }
 
-void RestServer::update(const std::string& id, const std::string& name, const std::string& number) {
-    phonebook::update(id, Contact{name, number});
+std::string RestServer::update(const std::string& username, const std::string& token, const std::string& id,
+                               const std::string& name, const std::string& number) {
+  AuthToken authToken{username, token};
+  phonebook::update(authToken, id, Contact{name, number});
+  return "Contact successfully updated";
 }
 
-void RestServer::remove(const std::string& id) {
-    phonebook::remove(id);
+std::string RestServer::remove(const std::string& username, const std::string& token, const std::string& id) {
+  AuthToken authToken{username, token};
+  phonebook::remove(authToken, id);
+  return "Contact successfully removed";
 }
 
 std::string RestServer::signIn(const std::string& username, const std::string& password, const std::string& key) {
-    return phonebook::signIn(AuthBundle{username, password, key});
+  return phonebook::signIn(AuthBundle{username, password, key});
 }
 
-void RestServer::signUp(const std::string& username, const std::string& password, const std::string& key) {
-    phonebook::signUp(AuthBundle{username, password, key});
+std::string RestServer::signUp(const std::string& username, const std::string& password, const std::string& key) {
+  phonebook::signUp(AuthBundle{username, password, key});
+  return "Account successfully created";
 }

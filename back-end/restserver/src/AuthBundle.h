@@ -7,7 +7,7 @@
 #include <string>
 
 struct AuthBundle {
-    std::string username;
-    std::string password;
-    std::string key;
+  std::string username;
+  std::string password;
+  std::string key;
 };
