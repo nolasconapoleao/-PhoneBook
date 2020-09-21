@@ -47,6 +47,18 @@ namespace phonebook {
         create(contact);
     }
 
+    std::string signIn(const AuthBundle& bundle) {
+      if(authManager.authenticate(bundle)) {
+        return authManager.generateToken();
+      } else {
+        return "Invalid credentials!";
+      }
+    }
+
+    void signUp(const AuthBundle& bundle) {
+      NGREST_ASSERT_HTTP(authManager.signUp(bundle), ngrest::HTTP_STATUS_404_NOT_FOUND, "Could not sign up!");
+    }
+
     void clearAll() {
       list.clear();
     }

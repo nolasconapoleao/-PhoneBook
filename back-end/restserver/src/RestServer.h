@@ -32,4 +32,11 @@ public:
     // *method: DELETE
     void remove(const std::string& id);
 
+    //! Sign in to an account
+    // *method: GET
+    std::string signIn(const std::string& username, const std::string& password, const std::string& key);
+
+    //! Sign up to an account
+    // *method: GET
+    void signUp(const std::string& username, const std::string& password, const std::string& key);
 };

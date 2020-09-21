@@ -23,5 +23,12 @@ void RestServer::update(const std::string& id, const std::string& name, const st
 
 void RestServer::remove(const std::string& id) {
     phonebook::remove(id);
+}
 
+std::string RestServer::signIn(const std::string& username, const std::string& password, const std::string& key) {
+    return phonebook::signIn(AuthBundle{username, password, key});
+}
+
+void RestServer::signUp(const std::string& username, const std::string& password, const std::string& key) {
+    phonebook::signUp(AuthBundle{username, password, key});
 }
