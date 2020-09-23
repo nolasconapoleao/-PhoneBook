@@ -1,87 +1,67 @@
-cmake_minimum_required (VERSION 2.8.4)
-project (restserver)
+cmake_minimum_required(VERSION 2.6)
 
-include(CheckCXXCompilerFlag)
+project (phonebookserver CXX)
 
-check_cxx_compiler_flag(-std=gnu++11 HAS_CXX11)
-if (HAS_CXX11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
-endif()
+# Add cmake scripts
+include(tools/cmake/tests.cmake)
 
-if (NOT APPLE)
-    check_cxx_compiler_flag(-Wl,--no-undefined HAS_NO_UNDEFINED)
-    if (HAS_NO_UNDEFINED)
-        set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--no-undefined")
-        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")
-        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")
-    endif()
-endif()
+set(PHONEBOOK_HEADERS RestServer.h Contact.h)
 
-check_cxx_compiler_flag(-pedantic HAS_PEDANTIC)
-if (HAS_PEDANTIC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pedantic")
-endif()
+set(PROJECT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(PHONEBOOK_CODEGEN_DIR "${PROJECT_BINARY_DIR}/codegen")
 
-check_cxx_compiler_flag(-Wall HAS_WALL)
-if (HAS_WALL)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-endif()
+PREPEND(PHONEBOOK_HEADERS_PATHS ${PROJECT_SOURCE_DIR} ${PHONEBOOK_HEADERS})
 
-if (CMAKE_BUILD_TYPE MATCHES "DEBUG")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDEBUG")
-endif()
+CODEGEN_FILES(
+    PHONEBOOK_CODEGEN_SOURCES
+        ${PHONEBOOK_CODEGEN_DIR}
+        ${PHONEBOOK_HEADERS}
+)
 
-set(PROJECT_DEPLOY_DIR ${PROJECT_BINARY_DIR}/deploy)
-set(PROJECT_INCLUDE_DIR ${PROJECT_DEPLOY_DIR}/include)
-set(PROJECT_SHARE_DIR ${PROJECT_DEPLOY_DIR}/share/ngrest)
-set(PROJECT_SERVICES_DIR ${PROJECT_SHARE_DIR}/services)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_DEPLOY_DIR}/lib)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_DEPLOY_DIR}/lib)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_DEPLOY_DIR}/bin)
+add_custom_command(OUTPUT ${PHONEBOOK_CODEGEN_SOURCES}
+    COMMAND ${NGREST_BIN_PATH}ngrestcg -i "${PROJECT_SOURCE_DIR}" -o ${PHONEBOOK_CODEGEN_DIR} -t service ${PHONEBOOK_HEADERS}
+    DEPENDS ${PHONEBOOK_HEADERS_PATHS}
+)
 
-FUNCTION(PREPEND var prefix)
-   SET(listVar "")
-   FOREACH(f ${ARGN})
-      LIST(APPEND listVar "${prefix}/${f}")
-   ENDFOREACH(f)
-   SET(${var} "${listVar}" PARENT_SCOPE)
-ENDFUNCTION(PREPEND)
+file(GLOB_RECURSE PHONEBOOK_SOURCES ${PROJECT_SOURCE_DIR}/*.cpp)
 
-FUNCTION(CODEGEN_FILES outVar prefix)
-   SET(listVar "${prefix}/ServiceGroupImpl.h" "${prefix}/ServiceGroupImpl.cpp")
-   FOREACH(file ${ARGN})
-      get_filename_component(fileBase "${file}" NAME_WE)
-      LIST(APPEND listVar "${prefix}/${fileBase}Wrapper.h")
-      LIST(APPEND listVar "${prefix}/${fileBase}Wrapper.cpp")
-   ENDFOREACH(file)
-   SET(${outVar} "${listVar}" PARENT_SCOPE)
-ENDFUNCTION(CODEGEN_FILES)
+list(APPEND PHONEBOOK_SOURCES ${PHONEBOOK_CODEGEN_SOURCES})
 
-include_directories("${PROJECT_INCLUDE_DIR}")
+include_directories(src $ENV{NGREST_EXT_INCLUDES})
 
-if (NOT "$ENV{NGREST_HOME}" STREQUAL "")
-  set(NGREST_HOME "$ENV{NGREST_HOME}")
-else()
-  set(NGREST_HOME "$ENV{HOME}/.ngrest/ngrest-build/deploy")
-endif()
+add_library(
+    ${PROJECT_NAME}
+        MODULE
+        ${PHONEBOOK_SOURCES}
+        src/Contact.h
+        src/include/AuthBundle.h
+        src/include/AuthToken.h
+)
 
-include_directories("${NGREST_HOME}/include")
-if (MINGW)
-    link_directories("${NGREST_HOME}/bin")
-else()
-    link_directories("${NGREST_HOME}/lib")
-endif()
+set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+set_target_properties(
+    ${PROJECT_NAME}
+        PROPERTIES
+        LIBRARY_OUTPUT_DIRECTORY
+        "${PROJECT_SERVICES_DIR}"
+)
 
-set(NGREST_BIN_PATH "${NGREST_HOME}/bin/")
+target_link_libraries(
+    ${PROJECT_NAME}
+        ngrestutils
+        ngrestcommon
+        ngrestjson
+        ngrestengine
+        $ENV{NGREST_EXT_LIBS}
+)
 
-# services deployed from this project
+# To disable tests, comment these two lines
+enable_testing()
+add_subdirectory(tests)
 
-
-add_subdirectory(restserver)
-if (APPLE) # cmake sets .so extension for modules under mac os x
-    set_target_properties(restserver PROPERTIES SUFFIX ".dylib")
-endif()
-if (MINGW) # cmake sets .so extension for modules under windows
-    set_target_properties(restserver PROPERTIES SUFFIX ".dll")
-    link_directories("${NGREST_HOME}/bin")
-endif()
+## Unit tests target
+add_custom_target(RunAllTests
+    COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure
+    COMMENT "Run all tests"
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/back-end/tests
+)

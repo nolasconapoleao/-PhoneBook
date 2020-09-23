@@ -3,8 +3,7 @@
 //
 
 #define CATCH_CONFIG_MAIN
-#include <Contact.h>
-#include <Phonebook.h>
+#include <Controller.h>
 
 #include "catch.hpp"
 
@@ -26,7 +25,7 @@ const std::string updateName = "Vinnie";
 }; // namespace constants
 
 SCENARIO("Sign up, sign in and authentication", "[Phonebook]") {
-  phonebook::clearAll();
+    phonebook::fullWipe();
   REQUIRE_NOTHROW(phonebook::signUp(constants::cBundle));
   REQUIRE_THROWS(phonebook::signUp(constants::cBundle));
   REQUIRE_NOTHROW(phonebook::signIn(constants::cBundle));
@@ -37,7 +36,7 @@ SCENARIO("Sign up, sign in and authentication", "[Phonebook]") {
 }
 
 SCENARIO("Create contact in include", "[Phonebook]") {
-  phonebook::clearAll();
+    phonebook::fullWipe();
   phonebook::signUp(constants::cBundle);
   phonebook::signIn(constants::cBundle);
   const auto& uuid = phonebook::signIn(constants::cBundle);
@@ -70,7 +69,7 @@ SCENARIO("Create contact in include", "[Phonebook]") {
 }
 
 SCENARIO("Read contact by Id", "[Phonebook]") {
-  phonebook::clearAll();
+    phonebook::fullWipe();
   phonebook::signUp(constants::cBundle);
   phonebook::signIn(constants::cBundle);
   const auto& uuid = phonebook::signIn(constants::cBundle);
@@ -92,7 +91,7 @@ SCENARIO("Read contact by Id", "[Phonebook]") {
 }
 
 SCENARIO("Delete contact", "[Phonebook]") {
-  phonebook::clearAll();
+    phonebook::fullWipe();
   phonebook::signUp(constants::cBundle);
   phonebook::signIn(constants::cBundle);
   const auto& uuid = phonebook::signIn(constants::cBundle);
@@ -112,7 +111,7 @@ SCENARIO("Delete contact", "[Phonebook]") {
 }
 
 SCENARIO("Update contact", "[Phonebook]") {
-  phonebook::clearAll();
+    phonebook::fullWipe();
   phonebook::signUp(constants::cBundle);
   phonebook::signIn(constants::cBundle);
   const auto& uuid = phonebook::signIn(constants::cBundle);
