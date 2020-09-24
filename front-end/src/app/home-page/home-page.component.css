@@ -1,0 +1,17 @@
+#logo {
+  float: right;
+  width: 25%;
+  height: 25%;
+}
+
+#description {
+  clear: both;
+  border-style: solid;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#userCounter {
+  margin-top: 5%;
+  text-align: center;
+}
