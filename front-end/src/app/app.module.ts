@@ -4,19 +4,18 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AlertModule } from 'ngx-bootstrap';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    TopNavComponent
+    TopNavComponent,
+    SettingsPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    NgbModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
