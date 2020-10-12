@@ -13,7 +13,7 @@ import { PhoneBookPageComponent } from './phone-book-page/phone-book-page.compon
     routingComponents,
     TopNavComponent,
     SettingsPageComponent,
-    PhoneBookPageComponent
+
   ],
   imports: [
     BrowserModule,
