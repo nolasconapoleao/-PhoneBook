@@ -4,17 +4,20 @@
 
 #pragma once
 
-#include <string>
 #include <map>
+#include <string>
+
+using ContactId = std::pair<std::string, std::string>;
 
 class ContactList {
 public:
-    ContactList();
-    ~ContactList();
-    std::map<std::string, std::string> contacts;
-    void clear();
+  ContactList();
+  ~ContactList();
+  void clear();
+
+  std::map<ContactId, std::string> contactDb;
 
 private:
-    void restore();
-    void persist();
+  void restore();
+  void persist();
 };

@@ -9,6 +9,7 @@ add_executable(
 target_sources(
     ${EXECUTABLE_NAME}
     PRIVATE
+        ${CMAKE_SOURCE_DIR}/restserver/src/AuthManager.cpp
         ${CMAKE_SOURCE_DIR}/restserver/src/ContactList.cpp
         ${CMAKE_SOURCE_DIR}/restserver/src/Phonebook.cpp
 )

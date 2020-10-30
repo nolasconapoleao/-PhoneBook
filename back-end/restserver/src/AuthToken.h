@@ -6,7 +6,7 @@
 
 #include <string>
 
-struct Contact {
-  std::string name;
-  std::string number;
+struct AuthToken {
+  std::string username;
+  std::string token;
 };
