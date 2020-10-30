@@ -8841,7 +8841,7 @@ namespace detail {
 
     class TokenStream;
 
-    // Transport for raw args (copied from main args, or supplied via init list for testing)
+    // Transport for raw args (copied from main args, or supplied via init contactDb for testing)
     class Args {
         friend TokenStream;
         std::string m_exeName;
@@ -9826,7 +9826,7 @@ namespace Catch {
             if( factories.end() != result )
                 config.reporterName = lcReporter;
             else
-                return ParserResult::runtimeError( "Unrecognized reporter, '" + reporter + "'. Check available with --list-reporters" );
+                return ParserResult::runtimeError( "Unrecognized reporter, '" + reporter + "'. Check available with --contactDb-reporters" );
             return ParserResult::ok( ParseResultType::Matched );
         };
 
@@ -9834,11 +9834,11 @@ namespace Catch {
             = ExeName( config.processName )
             | Help( config.showHelp )
             | Opt( config.listTests )
-                ["-l"]["--list-tests"]
-                ( "list all/matching test cases" )
+                ["-l"]["--contactDb-tests"]
+                ( "contactDb all/matching test cases" )
             | Opt( config.listTags )
-                ["-t"]["--list-tags"]
-                ( "list all/matching tags" )
+                ["-t"]["--contactDb-tags"]
+                ( "contactDb all/matching tags" )
             | Opt( config.showSuccessfulTests )
                 ["-s"]["--success"]
                 ( "include successful tests in output" )
@@ -9888,11 +9888,11 @@ namespace Catch {
                 ["-v"]["--verbosity"]
                 ( "set output verbosity" )
             | Opt( config.listTestNamesOnly )
-                ["--list-test-names-only"]
-                ( "list all/matching test cases names only" )
+                ["--contactDb-test-names-only"]
+                ( "contactDb all/matching test cases names only" )
             | Opt( config.listReporters )
-                ["--list-reporters"]
-                ( "list all reporters" )
+                ["--contactDb-reporters"]
+                ( "contactDb all reporters" )
             | Opt( setTestOrder, "decl|lex|rand" )
                 ["--order"]
                 ( "test case order (defaults to decl)" )
@@ -11039,7 +11039,7 @@ namespace Catch {
         assertionResult.m_resultData.lazyExpression.m_transientExpression = _assertionResult.m_resultData.lazyExpression.m_transientExpression;
 
         if( assertionResult.hasMessage() ) {
-            // Copy message into messages list.
+            // Copy message into messages contactDb.
             // !TBD This should have been done earlier, somewhere
             MessageBuilder builder( assertionResult.getTestMacroName(), assertionResult.getSourceInfo(), assertionResult.getResultType() );
             builder << assertionResult.getMessage();
@@ -13453,7 +13453,7 @@ namespace Catch {
             if( m_configData.filenamesAsTags )
                 applyFilenamesAsTags( *m_config );
 
-            // Handle list request
+            // Handle contactDb request
             if( Option<std::size_t> listed = list( m_config ) )
                 return static_cast<int>( *listed );
 
@@ -26628,7 +26628,7 @@ namespace detail {
 
     class TokenStream;
 
-    // Transport for raw args (copied from main args, or supplied via init list for testing)
+    // Transport for raw args (copied from main args, or supplied via init contactDb for testing)
     class Args {
         friend TokenStream;
         std::string m_exeName;
@@ -27613,7 +27613,7 @@ namespace Catch {
             if( factories.end() != result )
                 config.reporterName = lcReporter;
             else
-                return ParserResult::runtimeError( "Unrecognized reporter, '" + reporter + "'. Check available with --list-reporters" );
+                return ParserResult::runtimeError( "Unrecognized reporter, '" + reporter + "'. Check available with --contactDb-reporters" );
             return ParserResult::ok( ParseResultType::Matched );
         };
 
@@ -27621,11 +27621,11 @@ namespace Catch {
             = ExeName( config.processName )
             | Help( config.showHelp )
             | Opt( config.listTests )
-                ["-l"]["--list-tests"]
-                ( "list all/matching test cases" )
+                ["-l"]["--contactDb-tests"]
+                ( "contactDb all/matching test cases" )
             | Opt( config.listTags )
-                ["-t"]["--list-tags"]
-                ( "list all/matching tags" )
+                ["-t"]["--contactDb-tags"]
+                ( "contactDb all/matching tags" )
             | Opt( config.showSuccessfulTests )
                 ["-s"]["--success"]
                 ( "include successful tests in output" )
@@ -27675,11 +27675,11 @@ namespace Catch {
                 ["-v"]["--verbosity"]
                 ( "set output verbosity" )
             | Opt( config.listTestNamesOnly )
-                ["--list-test-names-only"]
-                ( "list all/matching test cases names only" )
+                ["--contactDb-test-names-only"]
+                ( "contactDb all/matching test cases names only" )
             | Opt( config.listReporters )
-                ["--list-reporters"]
-                ( "list all reporters" )
+                ["--contactDb-reporters"]
+                ( "contactDb all reporters" )
             | Opt( setTestOrder, "decl|lex|rand" )
                 ["--order"]
                 ( "test case order (defaults to decl)" )
@@ -28826,7 +28826,7 @@ namespace Catch {
         assertionResult.m_resultData.lazyExpression.m_transientExpression = _assertionResult.m_resultData.lazyExpression.m_transientExpression;
 
         if( assertionResult.hasMessage() ) {
-            // Copy message into messages list.
+            // Copy message into messages contactDb.
             // !TBD This should have been done earlier, somewhere
             MessageBuilder builder( assertionResult.getTestMacroName(), assertionResult.getSourceInfo(), assertionResult.getResultType() );
             builder << assertionResult.getMessage();
@@ -28963,7 +28963,7 @@ namespace Catch {
 
     std::size_t listReporters();
 
-    Option<std::size_t> list( std::shared_ptr<Config> const& config );
+    Option<std::size_t> contactDb( std::shared_ptr<Config> const& config );
 
 } // end namespace Catch
 
@@ -29110,7 +29110,7 @@ namespace Catch {
         return factories.size();
     }
 
-    Option<std::size_t> list( std::shared_ptr<Config> const& config ) {
+    Option<std::size_t> contactDb( std::shared_ptr<Config> const& config ) {
         Option<std::size_t> listedCount;
         getCurrentMutableContext().setConfig( config );
         if( config->listTests() )
@@ -31240,8 +31240,8 @@ namespace Catch {
             if( m_configData.filenamesAsTags )
                 applyFilenamesAsTags( *m_config );
 
-            // Handle list request
-            if( Option<std::size_t> listed = list( m_config ) )
+            // Handle contactDb request
+            if( Option<std::size_t> listed = contactDb( m_config ) )
                 return static_cast<int>( *listed );
 
             TestGroup tests { m_config };

@@ -2,27 +2,27 @@
 // Created by nolasco on 13/09/20.
 //
 
-#include "ContactList.h"
+#include "ContactDb.h"
 
 #include <fstream>
 #include <sstream>
 
-constexpr const char* const filename{".ngrest/local/build/contactDb.txt"};
+constexpr const char* const filename{".ngrest/local/contacts/contacts.txt"};
 
-ContactList::ContactList() {
-  contactDb = std::map<std::pair<std::string, std::string>, std::string>{};
+ContactDb::ContactDb() {
+    contacts = std::map<std::pair<std::string, std::string>, std::string>{};
   restore();
 }
 
-ContactList::~ContactList() {
+ContactDb::~ContactDb() {
   persist();
 }
 
-void ContactList::clear() {
-  contactDb.clear();
+void ContactDb::clear() {
+  contacts.clear();
 }
 
-void ContactList::restore() {
+void ContactDb::restore() {
   std::string line;
   std::string temp[3];
 
@@ -34,16 +34,16 @@ void ContactList::restore() {
       while (std::getline(lineStream, temp[i], ',')) {
         ++i;
       };
-      contactDb.emplace(ContactId{temp[0], temp[1]}, temp[2]);
+      contacts.emplace(ContactId{temp[0], temp[1]}, temp[2]);
     }
     myfile.close();
   }
 }
 
-void ContactList::persist() {
+void ContactDb::persist() {
   std::ofstream myfile;
   myfile.open(filename);
-  for (const auto& [id, name] : contactDb) {
+  for (const auto& [id, name] : contacts) {
     myfile << id.first << "," << id.second << "," << name << "\n";
   }
   myfile.close();

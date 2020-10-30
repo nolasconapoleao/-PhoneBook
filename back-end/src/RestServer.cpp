@@ -3,7 +3,7 @@
 
 #include "RestServer.h"
 
-#include "Phonebook.h"
+#include "Controller.h"
 
 std::list<Contact> RestServer::readAll(const std::string& username, const std::string& token) {
   AuthToken authToken{username, token};

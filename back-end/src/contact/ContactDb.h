@@ -9,13 +9,12 @@
 
 using ContactId = std::pair<std::string, std::string>;
 
-class ContactList {
+class ContactDb {
 public:
-  ContactList();
-  ~ContactList();
+  ContactDb();
+  ~ContactDb();
   void clear();
-
-  std::map<ContactId, std::string> contactDb;
+  std::map<ContactId, std::string> contacts;
 
 private:
   void restore();

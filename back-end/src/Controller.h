@@ -7,9 +7,9 @@
 #include <list>
 #include <map>
 
-#include "AuthManager.h"
 #include "Contact.h"
-#include "ContactList.h"
+#include "authentication/AccountManager.h"
+#include "contact/ContactDb.h"
 
 namespace phonebook {
 std::list<Contact> readAll(const AuthToken& token);
@@ -20,10 +20,10 @@ void update(const AuthToken& token, const std::string& id, const Contact& contac
 std::string signIn(const AuthBundle& bundle);
 void signUp(const AuthBundle& bundle);
 
-void clearAll();
+void fullWipe();
 void populateDb();
 bool idExists(const std::string& username, const std::string& id);
 
-static ContactList list = ContactList{};
-static AuthManager authManager = AuthManager{};
+static ContactDb contactDb = ContactDb{};
+static AccountManager authManager = AccountManager{};
 }; // namespace phonebook
